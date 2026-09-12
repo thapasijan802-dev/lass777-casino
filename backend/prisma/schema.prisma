@@ -1,0 +1,305 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum TransactionType {
+  DEPOSIT
+  WITHDRAWAL
+  BET
+  WIN
+  BONUS
+  CASHBACK
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  REJECTED
+  CANCELLED
+}
+
+enum GameCategory {
+  SLOTS
+  CRASH
+  FISH
+  LIVE
+  TABLE
+}
+
+enum GameProviderType {
+  PG_SOFT
+  PRAGMATIC
+  JILI
+  SPRIBE
+  BIGSIX
+  EVOLUTION
+  NETENT
+}
+
+enum Volatility {
+  LOW
+  MEDIUM
+  HIGH
+  VERY_HIGH
+}
+
+enum GameMode {
+  REAL
+  DEMO
+}
+
+enum SessionStatus {
+  ACTIVE
+  CLOSED
+}
+
+enum BonusType {
+  WELCOME_BONUS
+  FREE_SPINS
+  RELOAD
+  VIP_CASHBACK
+}
+
+enum BonusStatus {
+  ACTIVE
+  COMPLETED
+  EXPIRED
+}
+
+enum CrashRoundStatus {
+  BETTING
+  RUNNING
+  CRASHED
+}
+
+enum CrashBetStatus {
+  PENDING
+  CASHED_OUT
+  BUSTED
+}
+
+enum MinesSessionStatus {
+  ACTIVE
+  CASHED_OUT
+  EXPLODED
+}
+
+model User {
+  id           String       @id @default(uuid())
+  email        String       @unique
+  username     String       @unique
+  phone        String?
+  passwordHash String
+  role         Role         @default(USER)
+  vipLevel     Int          @default(1)
+  status       UserStatus   @default(ACTIVE)
+  avatarUrl    String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  wallet       Wallet?
+  sessions     GameSession[]
+  bonuses      Bonus[]
+  transactions  Transaction[]
+  slotRounds    SlotRound[]
+  crashBets     CrashBet[]
+  minesSessions MinesSession[]
+
+  @@map("users")
+}
+
+model Wallet {
+  id            String        @id @default(uuid())
+  userId        String        @unique
+  realBalance   Float         @default(0.0)
+  bonusBalance  Float         @default(0.0)
+  lockedBalance Float         @default(0.0)
+  currency      String        @default("USD")
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions  Transaction[]
+
+  @@map("wallets")
+}
+
+model Transaction {
+  id            String            @id @default(uuid())
+  walletId      String
+  userId        String
+  type          TransactionType
+  amount        Float
+  currency      String            @default("USD")
+  status        TransactionStatus @default(PENDING)
+  paymentMethod String?
+  txHash        String?
+  providerRef   String?
+  metadata      String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  wallet        Wallet            @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  user          User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([walletId])
+  @@index([status])
+  @@map("transactions")
+}
+
+model Game {
+  id          String           @id @default(uuid())
+  slug        String           @unique
+  title       String
+  description String?
+  category    GameCategory
+  provider    GameProviderType
+  rtp         Float            @default(96.5)
+  volatility  Volatility       @default(MEDIUM)
+  thumbnail   String
+  bannerUrl   String?
+  active      Boolean          @default(true)
+  isHot       Boolean          @default(false)
+  isFeatured  Boolean          @default(false)
+  playCount   Int              @default(0)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  sessions    GameSession[]
+
+  @@index([category])
+  @@index([provider])
+  @@map("games")
+}
+
+model GameSession {
+  id           String        @id @default(uuid())
+  userId       String
+  gameId       String
+  sessionToken String        @unique
+  currency     String        @default("USD")
+  mode         GameMode      @default(REAL)
+  status       SessionStatus @default(ACTIVE)
+  startedAt    DateTime      @default(now())
+  endedAt      DateTime?
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  game         Game          @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([gameId])
+  @@map("game_sessions")
+}
+
+model Bonus {
+  id               String      @id @default(uuid())
+  userId           String
+  code             String?
+  type             BonusType
+  amount           Float
+  wageringRequired Float
+  wageringProgress Float       @default(0.0)
+  status           BonusStatus @default(ACTIVE)
+  expiresAt        DateTime
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+
+  user             User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("bonuses")
+}
+
+model SlotRound {
+  id          String   @id @default(uuid())
+  userId      String
+  betAmount   Float
+  winAmount   Float
+  reelMatrix  Json
+  paylinesWon Json
+  serverSeed  String
+  clientSeed  String?
+  nonce       Int
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([createdAt])
+  @@map("slot_rounds")
+}
+
+model CrashRound {
+  id             String           @id @default(uuid())
+  crashPoint     Float
+  serverSeed     String
+  serverSeedHash String
+  clientSeed     String?
+  nonce          Int
+  status         CrashRoundStatus @default(BETTING)
+  crashedAt      DateTime?
+  createdAt      DateTime         @default(now())
+
+  bets           CrashBet[]
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("crash_rounds")
+}
+
+model CrashBet {
+  id                String         @id @default(uuid())
+  userId            String
+  roundId           String
+  betAmount         Float
+  cashoutMultiplier Float?
+  payout            Float?
+  status            CrashBetStatus @default(PENDING)
+  createdAt         DateTime       @default(now())
+
+  user              User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  round             CrashRound     @relation(fields: [roundId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([roundId])
+  @@index([status])
+  @@map("crash_bets")
+}
+
+model MinesSession {
+  id                String             @id @default(uuid())
+  userId            String
+  betAmount         Float
+  mineCount         Int
+  minePositions     Int[]
+  revealedTiles     Int[]
+  currentMultiplier Float              @default(1.0)
+  status            MinesSessionStatus @default(ACTIVE)
+  serverSeed        String
+  clientSeed        String?
+  nonce             Int
+  createdAt         DateTime           @default(now())
+
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("mines_sessions")
+}

@@ -1,0 +1,25 @@
+{
+  "name": "lass777-casino-platform",
+  "version": "1.0.0",
+  "description": "White-label iGaming casino platform inspired by lass777.com (Slots, Crash, Fish games, Aggregator Layer)",
+  "scripts": {
+    "dev:backend": "npm --prefix backend run start:dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build:backend": "npm --prefix backend run build",
+    "build:frontend": "npm --prefix frontend run build",
+    "build": "npm run build:backend && npm run build:frontend",
+    "prisma:generate": "npm --prefix backend run prisma:generate",
+    "prisma:push": "npm --prefix backend run prisma:push",
+    "prisma:seed": "npm --prefix backend run prisma:seed"
+  },
+  "keywords": [
+    "casino",
+    "igaming",
+    "slots",
+    "crash",
+    "aggregator",
+    "white-label"
+  ],
+  "author": "Antigravity iGaming",
+  "license": "UNLICENSED"
+}
