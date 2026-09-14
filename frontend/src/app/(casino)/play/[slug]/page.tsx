@@ -33,11 +33,11 @@ function PlayGameContent() {
       router.replace('/games/slot');
       return;
     }
-    if (slug === 'aviator' || slug === 'jetx') {
+    if (slug === 'aviator' || slug === 'jetx' || slug === 'crash') {
       router.replace('/games/crash');
       return;
     }
-    if (slug === 'mines') {
+    if (slug === 'mines' || slug === 'plinko') {
       router.replace('/games/mines');
       return;
     }

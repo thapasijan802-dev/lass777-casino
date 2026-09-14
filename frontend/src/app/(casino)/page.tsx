@@ -4,335 +4,296 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuthStore } from '@/store/useAuthStore';
 import { GameCard } from '@/components/lobby/GameCard';
+import { LiveBetsFeed } from '@/components/lobby/LiveBetsFeed';
 import { INITIAL_GAMES, VIP_TIERS } from '@/lib/constants';
 import { formatCurrency } from '@/lib/utils';
 import {
   Sparkles,
   Flame,
   ArrowRight,
-  Download,
   Gift,
   Crown,
-  Smartphone,
   ShieldCheck,
   Zap,
   Coins,
-  QrCode,
-  CheckCircle2,
   Trophy,
+  Rocket,
+  Gamepad2,
+  Lock,
+  ChevronRight,
 } from 'lucide-react';
 
 export default function LandingPage() {
-  const { isAuthenticated, openAuthModal } = useAuthStore();
+  const { openAuthModal } = useAuthStore();
 
   // Dynamic live jackpot ticker state
-  const [jackpot, setJackpot] = useState(1847520.45);
-  const [recentWinner, setRecentWinner] = useState({
-    user: 'Alex***77',
-    amount: 14500,
-    game: 'Gates of Olympus',
-  });
+  const [jackpot, setJackpot] = useState(2487520.85);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setJackpot((prev) => prev + Number((Math.random() * 2.85).toFixed(2)));
+      setJackpot((prev) => prev + Number((Math.random() * 3.4).toFixed(2)));
     }, 1800);
     return () => clearInterval(interval);
   }, []);
 
-  const winnersList = [
-    { user: 'Vip***99', amount: 8450, game: 'Fortune Tiger' },
-    { user: 'Lucky***07', amount: 16200, game: 'Gates of Olympus' },
-    { user: 'Leo***777', amount: 5320, game: 'Aviator' },
-    { user: 'Sarah***K', amount: 24800, game: 'Lass Slot 777 Deluxe' },
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const randomWinner = winnersList[Math.floor(Math.random() * winnersList.length)];
-      setRecentWinner(randomWinner);
-    }, 4500);
-    return () => clearInterval(interval);
-  }, []);
-
-  const featuredGames = INITIAL_GAMES.slice(0, 8);
+  // Filter games by category for showcase sections
+  const originalsGames = INITIAL_GAMES.filter((g) => g.category === 'ORIGINALS').slice(0, 6);
+  const trendingSlots = INITIAL_GAMES.filter((g) => g.category === 'SLOTS').slice(0, 8);
+  const liveShows = INITIAL_GAMES.filter((g) => g.category === 'LIVE').slice(0, 4);
 
   return (
-    <div className="relative min-h-screen bg-[#07090e] text-white overflow-hidden">
-      {/* 1. HERO SECTION (Lass777 Glamour Aesthetic) */}
-      <section className="relative min-h-[92vh] flex items-center justify-center pt-8 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        {/* Glamour Background Image with Dark Vignette */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1920&q=80"
-            alt="Glamorous Casino VIP Lounge"
-            className="w-full h-full object-cover object-center brightness-[0.22] contrast-[1.15]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#07090e] via-[#07090e]/60 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#07090e] via-transparent to-[#07090e]" />
-        </div>
+    <div className="relative min-h-screen bg-[#080b12] text-slate-100 overflow-hidden">
+      {/* 1. HERO SECTION (Stake & Rainbet Sleek Aesthetic) */}
+      <section className="relative pt-12 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+        {/* Subtle Ambient Radial Glows */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-emerald-500/10 blur-[130px] pointer-events-none rounded-full" />
+        <div className="absolute top-20 right-10 w-[400px] h-[300px] bg-cyan-500/10 blur-[120px] pointer-events-none rounded-full" />
 
-        {/* Floating Money & Golden Particles Animation */}
-        <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
-          <div className="absolute top-1/4 left-[8%] animate-float text-3xl opacity-70 filter drop-shadow-[0_0_10px_#f59e0b]">
-            🪙
-          </div>
-          <div className="absolute top-1/3 right-[10%] animate-float [animation-delay:1.5s] text-4xl opacity-80 filter drop-shadow-[0_0_15px_#00f2fe]">
-            💎
-          </div>
-          <div className="absolute bottom-1/3 left-[15%] animate-float [animation-delay:2.5s] text-2xl opacity-60">
-            💵
-          </div>
-          <div className="absolute top-2/3 right-[18%] animate-float [animation-delay:0.8s] text-3xl opacity-75">
-            🎰
-          </div>
-        </div>
-
-        {/* Hero Content Container */}
-        <div className="relative z-20 max-w-5xl mx-auto text-center flex flex-col items-center">
-          {/* Top VIP Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/40 text-amber-300 text-xs sm:text-sm font-black uppercase tracking-wider mb-6 shadow-gold-glow animate-pulse-glow">
-            <Crown className="w-4 h-4 fill-amber-400 text-amber-400" />
-            <span>OFFICIAL LASS777 WHITE-LABEL GAMING ENTERTAINMENT</span>
+        <div className="relative z-10 flex flex-col items-center text-center">
+          {/* Top VIP Badge Pill */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#101928] border border-emerald-500/40 text-emerald-400 text-xs sm:text-sm font-black uppercase tracking-wider mb-6 shadow-sm">
+            <Zap className="w-4 h-4 fill-emerald-400 text-emerald-400" />
+            <span>9CASINO • OFFICIAL NEXT-GEN CRYPTO GAMING & ORIGINALS</span>
           </div>
 
           {/* Big Bold Headline */}
           <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight uppercase leading-none mb-6">
-            BIG BET, <span className="gold-text-glow">BIG WIN!</span>
+            BET SMART. <span className="emerald-text-glow">WIN BIG.</span>
           </h1>
 
-          <p className="max-w-2xl text-slate-300 text-sm sm:text-lg md:text-xl font-medium mb-8 leading-relaxed">
-            Experience the gold standard in high-roller online slots, crash games, and live tables. Instant crypto payouts, 24/7 VIP concierge, and $20 on the house upon registration.
+          <p className="max-w-2xl text-slate-300 text-sm sm:text-lg md:text-xl font-medium mb-10 leading-relaxed">
+            Experience provably fair <strong className="text-white">9Casino Originals (99% RTP)</strong>, blockbuster Pragmatic & Hacksaw slots, and immersive live tables. Instant crypto cashouts and $20 on the house upon registration.
           </p>
 
-          {/* Live Mega Jackpot Counter */}
-          <div className="w-full max-w-xl mx-auto mb-10 p-5 rounded-3xl bg-gradient-to-r from-amber-950/70 via-[#131926]/90 to-amber-950/70 border-2 border-amber-500/50 shadow-gold-glow-lg backdrop-blur-xl">
-            <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-amber-400 mb-1">
-              <Trophy className="w-4 h-4 fill-amber-400" />
-              <span>LASS777 PROGRESSIVE MEGA JACKPOT</span>
-            </div>
-            <div className="text-3xl sm:text-5xl font-black font-mono tracking-tight text-white gold-text-glow">
-              {formatCurrency(jackpot)}
-            </div>
-          </div>
-
-          {/* Call To Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md">
+          {/* Quick CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md mb-12">
             <button
               onClick={() => openAuthModal('register')}
-              className="w-full sm:w-auto flex-1 py-4 px-8 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-black font-black text-base uppercase tracking-wider shadow-gold-glow hover:shadow-gold-glow-lg hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2"
+              className="w-full sm:w-auto flex-1 py-4 px-8 rounded-2xl bg-gradient-to-r from-emerald-400 to-[#00e701] text-black font-black text-base uppercase tracking-wider shadow-[0_0_25px_rgba(0,231,1,0.4)] hover:brightness-110 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2"
             >
               <Gift className="w-5 h-5" />
-              <span>GET $20 FREE</span>
+              <span>CLAIM $20 FREE</span>
             </button>
 
-            <a
-              href="#app-download"
-              className="w-full sm:w-auto flex-1 py-4 px-8 rounded-2xl bg-[#111724]/90 hover:bg-slate-800 border-2 border-amber-500/40 text-slate-100 hover:text-amber-400 font-black text-base uppercase tracking-wider shadow-card-elevated hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2"
+            <Link
+              href="/lobby?category=ORIGINALS"
+              className="w-full sm:w-auto flex-1 py-4 px-8 rounded-2xl bg-[#121929] hover:bg-slate-800 border border-slate-700 text-white hover:text-emerald-400 font-black text-base uppercase tracking-wider hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2"
             >
-              <Download className="w-5 h-5 text-amber-400" />
-              <span>DOWNLOAD APK</span>
-            </a>
+              <Zap className="w-5 h-5 text-emerald-400" />
+              <span>PLAY ORIGINALS</span>
+            </Link>
           </div>
 
-          {/* Real-Time Winner Ticker Strip */}
-          <div className="mt-12 flex items-center gap-3 px-5 py-2.5 rounded-full bg-[#0d121c]/80 border border-slate-800 backdrop-blur-md text-xs">
-            <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-            <span className="text-slate-400">Live Winner:</span>
-            <span className="font-bold text-slate-200">{recentWinner.user}</span>
-            <span className="text-slate-400">just won</span>
-            <span className="font-mono font-black text-emerald-400">
-              +{formatCurrency(recentWinner.amount)}
-            </span>
-            <span className="text-slate-400 hidden sm:inline">on {recentWinner.game}</span>
+          {/* Mobile Grind Quick Launch Ticker */}
+          <div className="w-full max-w-xl mx-auto mb-8 sm:hidden">
+            <div className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2 flex items-center justify-center gap-1.5">
+              <Zap className="w-3 h-3 text-emerald-400" />
+              <span>QUICK GRIND • INSTANT PLAY</span>
+            </div>
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none snap-x">
+              <Link
+                href="/games/mines"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#121929] border border-emerald-500/40 text-emerald-300 font-extrabold text-xs whitespace-nowrap active:scale-95 shadow-sm shrink-0"
+              >
+                <span>💣 Mines</span>
+                <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/20 px-1 rounded">99%</span>
+              </Link>
+              <Link
+                href="/games/crash"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#121929] border border-cyan-500/40 text-cyan-300 font-extrabold text-xs whitespace-nowrap active:scale-95 shadow-sm shrink-0"
+              >
+                <span>🚀 Crash</span>
+                <span className="text-[9px] font-mono text-cyan-400 bg-cyan-500/20 px-1 rounded">99%</span>
+              </Link>
+              <Link
+                href="/play/plinko"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#121929] border border-pink-500/40 text-pink-300 font-extrabold text-xs whitespace-nowrap active:scale-95 shadow-sm shrink-0"
+              >
+                <span>🎯 Plinko</span>
+                <span className="text-[9px] font-mono text-pink-400 bg-pink-500/20 px-1 rounded">1000x</span>
+              </Link>
+              <Link
+                href="/play/gates-of-olympus"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#121929] border border-amber-500/40 text-amber-300 font-extrabold text-xs whitespace-nowrap active:scale-95 shadow-sm shrink-0"
+              >
+                <span>⚡ Olympus</span>
+                <span className="text-[9px] font-mono text-amber-400 bg-amber-500/20 px-1 rounded">1000x</span>
+              </Link>
+              <Link
+                href="/play/sweet-bonanza"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#121929] border border-fuchsia-500/40 text-fuchsia-300 font-extrabold text-xs whitespace-nowrap active:scale-95 shadow-sm shrink-0"
+              >
+                <span>🍭 Bonanza</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Key Stats Bar */}
+          <div className="w-full max-w-4xl grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 p-3 sm:p-4 rounded-2xl bg-[#0d1322]/80 border border-slate-800/80 backdrop-blur-md text-left">
+            <div className="p-2 sm:p-3">
+              <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider">9Casino Originals</span>
+              <div className="text-base sm:text-xl font-black font-mono text-emerald-400">99.0% RTP</div>
+            </div>
+            <div className="p-2 sm:p-3">
+              <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider">Mega Jackpot</span>
+              <div className="text-base sm:text-xl font-black font-mono text-amber-400">{formatCurrency(jackpot)}</div>
+            </div>
+            <div className="p-2 sm:p-3">
+              <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider">Average Cashout</span>
+              <div className="text-base sm:text-xl font-black font-mono text-cyan-400">&lt; 90 Seconds</div>
+            </div>
+            <div className="p-2 sm:p-3">
+              <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider">Daily Rakeback</span>
+              <div className="text-base sm:text-xl font-black font-mono text-purple-400">Up to 20%</div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 2. FEATURED CASINO GAMES SECTION */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-amber-500/20">
-        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-10 gap-4">
+      {/* 2. 9CASINO ORIGINALS SECTION (Plinko, Mines, Crash, Limbo, Dice) */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800/60">
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 gap-4">
           <div>
-            <div className="flex items-center gap-2 text-xs font-black uppercase text-amber-400 mb-2">
-              <Flame className="w-4 h-4 fill-amber-400" />
-              <span>POPULAR SLOTS & CRASH</span>
+            <div className="flex items-center gap-2 text-xs font-black uppercase text-emerald-400 mb-2">
+              <Zap className="w-4 h-4 fill-emerald-400" />
+              <span>PROVABLY FAIR • 99% RTP</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-black tracking-tight">TRENDING AT LASS777</h2>
+            <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-white">
+              9CASINO <span className="emerald-text-glow">ORIGINALS</span>
+            </h2>
           </div>
 
           <Link
-            href="/lobby"
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-sm font-bold text-amber-400 hover:text-amber-300 transition-colors"
+            href="/lobby?category=ORIGINALS"
+            className="flex items-center gap-2 px-5 py-2 rounded-xl bg-[#121929] hover:bg-slate-800 border border-slate-700 text-xs font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
           >
-            <span>View All Games (25+)</span>
+            <span>View All Originals (10+)</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
-        {/* Grid of 8 Featured Games */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
-          {featuredGames.map((game) => (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 sm:gap-4">
+          {originalsGames.map((game) => (
             <GameCard key={game.id} game={game} />
           ))}
         </div>
       </section>
 
-      {/* 3. PROMOTIONS & BONUSES SECTION */}
-      <section id="promotions" className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-black uppercase mb-3">
-            <Gift className="w-3.5 h-3.5" />
-            <span>High-Roller Promotions</span>
+      {/* 3. TRENDING BLOCKBUSTER SLOTS (Pragmatic & Hacksaw) */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800/60">
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 gap-4">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-black uppercase text-amber-400 mb-2">
+              <Flame className="w-4 h-4 fill-amber-400" />
+              <span>HIGH VOLATILITY • PRAGMATIC & HACKSAW</span>
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-white">
+              TRENDING <span className="gold-text-glow">VIDEO SLOTS</span>
+            </h2>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-black tracking-tight">GENEROUS PLAYER BONUSES</h2>
+
+          <Link
+            href="/lobby?category=SLOTS"
+            className="flex items-center gap-2 px-5 py-2 rounded-xl bg-[#121929] hover:bg-slate-800 border border-slate-700 text-xs font-bold text-amber-400 hover:text-amber-300 transition-colors"
+          >
+            <span>View All Slots</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Promo Card 1 */}
-          <div className="relative rounded-3xl bg-gradient-to-b from-[#131928] to-[#0d121c] border border-amber-500/30 p-8 shadow-card-elevated flex flex-col justify-between">
-            <div>
-              <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase bg-amber-500 text-black">
-                FREE SIGNUP CHIP
-              </span>
-              <h3 className="text-2xl font-black mt-4 mb-2">$20 NO-DEPOSIT BONUS</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Register your account in under 30 seconds and receive a complimentary $20 bonus chip immediately credited to your wallet.
-              </p>
-            </div>
-            <button
-              onClick={() => openAuthModal('register')}
-              className="mt-6 w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider transition-colors"
-            >
-              CLAIM $20 NOW
-            </button>
-          </div>
-
-          {/* Promo Card 2 (Featured) */}
-          <div className="relative rounded-3xl bg-gradient-to-b from-amber-950/40 via-[#151d2f] to-[#0e1320] border-2 border-amber-400 p-8 shadow-gold-glow-lg flex flex-col justify-between md:-translate-y-2">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-black text-[10px] font-black uppercase tracking-widest shadow-gold-glow">
-              MOST POPULAR
-            </div>
-            <div>
-              <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase bg-amber-500/20 text-amber-400 border border-amber-500/40">
-                WELCOME PACKAGE
-              </span>
-              <h3 className="text-3xl font-black mt-4 mb-2 gold-text-glow">200% MATCH UP TO $1,000</h3>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Triple your bankroll on your first deposit! Plus get 50 free spins on our exclusive Lass Slot 777 Deluxe.
-              </p>
-            </div>
-            <button
-              onClick={() => openAuthModal('register')}
-              className="mt-6 w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-black font-black text-xs uppercase tracking-wider shadow-gold-glow hover:brightness-110 transition-all"
-            >
-              DEPOSIT & GET 200%
-            </button>
-          </div>
-
-          {/* Promo Card 3 */}
-          <div className="relative rounded-3xl bg-gradient-to-b from-[#131928] to-[#0d121c] border border-cyan-500/30 p-8 shadow-card-elevated flex flex-col justify-between">
-            <div>
-              <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
-                DAILY CASHBACK
-              </span>
-              <h3 className="text-2xl font-black mt-4 mb-2">UP TO 20% DAILY REBATE</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Play without fear. Every single day, receive automated cashback credited straight into your account with 1x wagering!
-              </p>
-            </div>
-            <Link
-              href="/lobby"
-              className="mt-6 w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-center font-black text-xs uppercase tracking-wider transition-colors"
-            >
-              EXPLORE GAMES
-            </Link>
-          </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-5">
+          {trendingSlots.map((game) => (
+            <GameCard key={game.id} game={game} />
+          ))}
         </div>
       </section>
 
-      {/* 4. VIP HIGH-ROLLER CLUB */}
-      <section id="vip" className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-black uppercase mb-3">
-            <Crown className="w-3.5 h-3.5" />
-            <span>Exclusive Membership</span>
+      {/* 4. REAL-TIME LIVE BETS FEED (Stake / Rainbet style) */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800/60">
+        <LiveBetsFeed />
+      </section>
+
+      {/* 5. LIVE CASINO & GAME SHOWS (Crazy Time, Lightning Roulette) */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800/60">
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 gap-4">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-black uppercase text-cyan-400 mb-2">
+              <Crown className="w-4 h-4 text-cyan-400" />
+              <span>LIVE DEALERS & GAME SHOWS</span>
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-white">
+              LIVE CASINO <span className="cyan-text-glow">STUDIOS</span>
+            </h2>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-black tracking-tight">LASS777 VIP LOUNGE</h2>
+
+          <Link
+            href="/lobby?category=LIVE"
+            className="flex items-center gap-2 px-5 py-2 rounded-xl bg-[#121929] hover:bg-slate-800 border border-slate-700 text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors"
+          >
+            <span>View Live Tables</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
+          {liveShows.map((game) => (
+            <GameCard key={game.id} game={game} />
+          ))}
+        </div>
+      </section>
+
+      {/* 6. VIP HIGH-ROLLER CLUB (Stake-inspired Rakeback & Tiers) */}
+      <section id="vip" className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800/60">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-black uppercase mb-3">
+            <Crown className="w-3.5 h-3.5 text-emerald-400" />
+            <span>9Casino VIP Rakeback Program</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-black tracking-tight">LEVEL UP & EARN RAKEBACK</h2>
+          <p className="text-xs sm:text-sm text-slate-400 mt-2 max-w-lg mx-auto">
+            Every bet you place—win or lose—earns instant rakeback and accelerates your climb to higher VIP tiers.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {VIP_TIERS.map((tier) => (
             <div
               key={tier.level}
-              className="rounded-2xl bg-[#0f1422] border border-amber-500/20 hover:border-amber-500/60 p-5 text-center flex flex-col justify-between transition-all hover:-translate-y-1 hover:shadow-gold-glow"
+              className="rounded-2xl bg-[#0c111e] border border-slate-800 hover:border-emerald-500/50 p-5 text-center flex flex-col justify-between transition-all hover:-translate-y-1 hover:shadow-lg"
             >
               <div>
-                <div className="w-10 h-10 mx-auto rounded-full bg-amber-500/10 border border-amber-500/40 flex items-center justify-center font-black text-amber-400 mb-3">
+                <div className="w-10 h-10 mx-auto rounded-full bg-emerald-500/10 border border-emerald-500/40 flex items-center justify-center font-black text-emerald-400 mb-3 font-mono">
                   {tier.level}
                 </div>
                 <h4 className="font-black text-sm text-slate-100 mb-1">{tier.name}</h4>
-                <div className="text-xs font-bold text-amber-400 mb-3">{tier.cashback} Cashback</div>
-                <p className="text-[11px] text-slate-400">{tier.perks}</p>
+                <div className="text-xs font-bold text-emerald-400 mb-2">{tier.cashback} Rakeback</div>
+                <p className="text-[11px] text-slate-400 mb-3">{tier.perks}</p>
+              </div>
+              <div className="text-[10px] font-mono text-slate-500 pt-2 border-t border-slate-800">
+                Wager: {tier.wager}
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 5. MOBILE APK DOWNLOAD SECTION (lass777.com core feature) */}
-      <section id="app-download" className="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div className="rounded-3xl bg-gradient-to-r from-[#141b2c] via-[#101524] to-[#141b2c] border-2 border-amber-500/40 p-8 sm:p-12 shadow-gold-glow-lg flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex-1 space-y-4 text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-black uppercase">
-              <Smartphone className="w-4 h-4" />
-              <span>Mobile-First Gaming Platform</span>
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
-              DOWNLOAD THE <span className="gold-text-glow">LASS777 APP</span>
-            </h2>
-            <p className="text-sm text-slate-300 leading-relaxed max-w-lg">
-              Enjoy ultra-smooth 60fps slots, instant push notifications on winning jackpots, fingerprint biometrics login, and exclusive in-app daily bonuses!
+      {/* 7. SUPPORTED CRYPTO VAULT BANNER */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800/60 mb-8">
+        <div className="rounded-3xl bg-gradient-to-r from-[#0d1322] via-[#0f1728] to-[#0d1322] border border-slate-800 p-6 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-2 text-left">
+            <h3 className="text-2xl font-black text-white">INSTANT CRYPTO CASHOUTS</h3>
+            <p className="text-xs text-slate-400 max-w-md">
+              Deposit and withdraw in seconds with zero hidden fees. Automated processing via Bitcoin, Ethereum, USDT, Solana, and more.
             </p>
-
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <button
-                onClick={() => alert('Download starting for Lass777_v2.4.apk (Official Android Build)')}
-                className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 to-yellow-500 text-black font-black text-sm uppercase tracking-wider shadow-gold-glow hover:brightness-110 flex items-center gap-2 transition-transform active:scale-95"
-              >
-                <Download className="w-5 h-5" />
-                <span>DOWNLOAD ANDROID APK</span>
-              </button>
-
-              <button
-                onClick={() => alert('For iOS: Open Safari, tap "Share", and select "Add to Home Screen" to install the Lass777 WebApp.')}
-                className="px-6 py-3.5 rounded-2xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-black text-sm uppercase tracking-wider flex items-center gap-2 transition-colors"
-              >
-                <Smartphone className="w-5 h-5 text-slate-300" />
-                <span>INSTALL ON iOS</span>
-              </button>
-            </div>
           </div>
 
-          {/* QR Code Card */}
-          <div className="p-6 rounded-2xl bg-[#090d16] border border-amber-500/30 text-center flex flex-col items-center shrink-0">
-            <div className="w-36 h-36 rounded-xl bg-white p-2.5 flex items-center justify-center mb-3 shadow-inner">
-              {/* Stylized QR Code Placeholder */}
-              <div className="w-full h-full border-4 border-black p-2 flex flex-col justify-between">
-                <div className="flex justify-between">
-                  <div className="w-6 h-6 bg-black" />
-                  <div className="w-6 h-6 bg-black" />
-                </div>
-                <div className="text-center font-black text-[10px] text-black tracking-tighter">
-                  LASS777
-                </div>
-                <div className="flex justify-between">
-                  <div className="w-6 h-6 bg-black" />
-                  <div className="w-3 h-3 bg-amber-500" />
-                </div>
-              </div>
-            </div>
-            <span className="text-xs font-bold text-slate-300">Scan to Install on Mobile</span>
-            <span className="text-[10px] text-amber-400 mt-0.5">Android & iOS Supported</span>
+          <div className="flex flex-wrap items-center gap-2 font-mono text-xs font-bold">
+            <span className="px-3 py-1.5 rounded-xl bg-[#141d30] border border-slate-700 text-amber-400">BTC</span>
+            <span className="px-3 py-1.5 rounded-xl bg-[#141d30] border border-slate-700 text-blue-400">ETH</span>
+            <span className="px-3 py-1.5 rounded-xl bg-[#141d30] border border-slate-700 text-emerald-400">USDT</span>
+            <span className="px-3 py-1.5 rounded-xl bg-[#141d30] border border-slate-700 text-purple-400">SOL</span>
+            <span className="px-3 py-1.5 rounded-xl bg-[#141d30] border border-slate-700 text-yellow-400">DOGE</span>
+            <span className="px-3 py-1.5 rounded-xl bg-[#141d30] border border-slate-700 text-slate-300">LTC</span>
           </div>
         </div>
       </section>

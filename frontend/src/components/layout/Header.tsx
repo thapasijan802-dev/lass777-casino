@@ -19,6 +19,7 @@ import {
   Wallet as WalletIcon,
   X,
   PlusCircle,
+  Zap,
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
@@ -39,42 +40,41 @@ export const Header: React.FC = () => {
 
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/lobby', label: 'Casino Lobby' },
+    { href: '/lobby', label: 'All Games' },
+    { href: '/lobby?category=ORIGINALS', label: '9Casino Originals' },
     { href: '/lobby?category=SLOTS', label: 'Slots' },
-    { href: '/lobby?category=CRASH', label: 'Crash' },
-    { href: '/lobby?category=FISH', label: 'Fish Arcade' },
-    { href: '/#promotions', label: 'Promotions' },
+    { href: '/lobby?category=LIVE', label: 'Live Casino' },
     { href: '/#vip', label: 'VIP Club' },
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-amber-500/20 bg-[#07090e]/90 backdrop-blur-xl transition-all">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-800/80 bg-[#080b12]/95 backdrop-blur-xl transition-all">
       {/* Top promotional ticker */}
-      <div className="bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700 py-1 px-4 text-center text-xs font-black tracking-wider text-black uppercase shadow-inner flex items-center justify-center gap-2">
-        <Crown className="w-3.5 h-3.5 fill-black animate-bounce" />
-        <span>WELCOME TO LASS777 • 200% FIRST DEPOSIT BONUS + $20 FREE REGISTRATION BONUS • INSTANT WITHDRAWALS</span>
-        <Crown className="w-3.5 h-3.5 fill-black animate-bounce" />
+      <div className="bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-700 py-1 px-4 text-center text-xs font-black tracking-wider text-black uppercase shadow-inner flex items-center justify-center gap-2">
+        <Zap className="w-3.5 h-3.5 fill-black" />
+        <span>WELCOME TO 9CASINO • 99% RTP ORIGINALS • $20 FREE REGISTRATION BONUS • INSTANT CRYPTO CASHOUTS</span>
+        <Zap className="w-3.5 h-3.5 fill-black" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 via-amber-600 to-yellow-800 p-0.5 shadow-gold-glow group-hover:scale-105 transition-transform">
-            <div className="w-full h-full bg-[#0d111a] rounded-[10px] flex items-center justify-center">
-              <span className="text-xl font-black italic gold-text-glow">777</span>
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-[#00e701] p-0.5 shadow-[0_0_15px_rgba(0,231,1,0.35)] group-hover:scale-105 transition-transform">
+            <div className="w-full h-full bg-[#090d16] rounded-[10px] flex items-center justify-center">
+              <span className="text-xl font-black font-mono text-emerald-400">9</span>
             </div>
           </div>
           <div className="flex flex-col">
-            <div className="flex items-center gap-1">
-              <span className="text-2xl font-black tracking-wider text-white group-hover:text-amber-400 transition-colors">
-                LASS<span className="text-amber-400">777</span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-2xl font-black tracking-wider text-white group-hover:text-emerald-400 transition-colors">
+                9<span className="text-emerald-400">CASINO</span>
               </span>
-              <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                VIP
+              <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                PRO
               </span>
             </div>
-            <span className="text-[10px] tracking-widest text-slate-400 uppercase font-semibold">
-              PREMIER iGAMING CASINO
+            <span className="text-[9px] tracking-widest text-slate-400 uppercase font-semibold">
+              CRYPTO & ORIGINALS
             </span>
           </div>
         </Link>
@@ -87,8 +87,8 @@ export const Header: React.FC = () => {
               <Link
                 key={link.label}
                 href={link.href}
-                className={`text-sm font-semibold transition-all hover:text-amber-400 ${
-                  isActive ? 'text-amber-400 font-bold drop-shadow-[0_0_8px_rgba(245,158,11,0.6)]' : 'text-slate-300'
+                className={`text-sm font-semibold transition-all hover:text-emerald-400 ${
+                  isActive ? 'text-emerald-400 font-bold drop-shadow-[0_0_8px_rgba(0,231,1,0.6)]' : 'text-slate-300'
                 }`}
               >
                 {link.label}
@@ -102,16 +102,16 @@ export const Header: React.FC = () => {
           {isAuthenticated ? (
             <div className="flex items-center gap-3">
               {/* Balance Widget */}
-              <div className="flex items-center bg-[#121824] border border-amber-500/30 rounded-full px-3 py-1.5 shadow-inner">
+              <div className="flex items-center bg-[#0e1422] border border-slate-800 rounded-full px-3 py-1.5 shadow-inner">
                 <div className="flex flex-col text-right mr-2.5">
                   <span className="text-[10px] uppercase font-bold text-slate-400">Total Balance</span>
-                  <span className="text-sm font-extrabold text-amber-400 font-mono">
+                  <span className="text-sm font-extrabold text-emerald-400 font-mono">
                     {formatCurrency(realBalance + bonusBalance)}
                   </span>
                 </div>
                 <button
                   onClick={openDepositModal}
-                  className="flex items-center gap-1 px-3 py-1 rounded-full text-xs font-black uppercase bg-gradient-to-r from-amber-500 to-yellow-500 text-black hover:brightness-110 shadow-gold-glow transition-transform active:scale-95"
+                  className="flex items-center gap-1 px-3 py-1 rounded-full text-xs font-black uppercase bg-gradient-to-r from-emerald-400 to-[#00e701] text-black hover:brightness-110 shadow-[0_0_12px_rgba(0,231,1,0.3)] transition-transform active:scale-95"
                 >
                   <PlusCircle className="w-3.5 h-3.5" />
                   Deposit
@@ -121,7 +121,7 @@ export const Header: React.FC = () => {
               {/* User Dropdown / Navs */}
               <Link
                 href="/profile"
-                className="p-2 rounded-xl bg-slate-800/80 border border-slate-700 hover:border-amber-500/50 hover:bg-slate-700/80 transition-all text-slate-300 hover:text-amber-400"
+                className="p-2 rounded-xl bg-slate-800/80 border border-slate-700 hover:border-emerald-500/50 hover:bg-slate-700/80 transition-all text-slate-300 hover:text-emerald-400"
                 title="Player Profile"
               >
                 <UserIcon className="w-5 h-5" />
@@ -195,10 +195,10 @@ export const Header: React.FC = () => {
           <div className="pt-4 border-t border-slate-800 flex flex-col gap-3">
             {isAuthenticated ? (
               <>
-                <div className="flex items-center justify-between p-3 rounded-xl bg-slate-900 border border-amber-500/30">
+                <div className="flex items-center justify-between p-3 rounded-xl bg-slate-900 border border-emerald-500/30">
                   <div>
                     <div className="text-xs text-slate-400">Total Balance</div>
-                    <div className="text-lg font-black text-amber-400">
+                    <div className="text-lg font-black text-emerald-400 font-mono">
                       {formatCurrency(realBalance + bonusBalance)}
                     </div>
                   </div>
@@ -207,7 +207,7 @@ export const Header: React.FC = () => {
                       setMobileMenuOpen(false);
                       openDepositModal();
                     }}
-                    className="px-4 py-2 rounded-xl text-xs font-black uppercase bg-gradient-to-r from-amber-500 to-yellow-500 text-black shadow-gold-glow"
+                    className="px-4 py-2 rounded-xl text-xs font-black uppercase bg-gradient-to-r from-emerald-400 to-[#00e701] text-black shadow-[0_0_12px_rgba(0,231,1,0.3)]"
                   >
                     Deposit
                   </button>
@@ -216,7 +216,7 @@ export const Header: React.FC = () => {
                   <Link
                     href="/profile"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex-1 py-2 text-center rounded-xl bg-slate-800 text-sm font-bold text-slate-200"
+                    className="flex-1 py-2 text-center rounded-xl bg-slate-800 text-sm font-bold text-slate-200 hover:text-emerald-400"
                   >
                     Profile
                   </Link>
@@ -256,10 +256,10 @@ export const Header: React.FC = () => {
                     setMobileMenuOpen(false);
                     openAuthModal('register');
                   }}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 text-black text-sm font-black uppercase shadow-gold-glow flex items-center justify-center gap-2"
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-400 to-[#00e701] text-black text-sm font-black uppercase shadow-[0_0_20px_rgba(0,231,1,0.35)] flex items-center justify-center gap-2"
                 >
                   <Gift className="w-4 h-4" />
-                  GET $20 FREE REGISTRATION BONUS
+                  GET $20 FREE BONUS
                 </button>
               </div>
             )}

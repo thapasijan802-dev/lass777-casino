@@ -5,10 +5,10 @@ import { DepositModal } from '@/components/wallet/DepositModal';
 import { WithdrawModal } from '@/components/wallet/WithdrawModal';
 
 export const metadata: Metadata = {
-  title: 'Lass777 Casino | Big Bet, Big Win! - Slots, Crash & Live Tables',
+  title: '9casino | The Next-Gen Crypto Casino - Slots, Originals & Live Tables',
   description:
-    'Experience the gold standard in online iGaming at Lass777. Play Pragmatic, PG Soft, JILI, and Spribe Aviator with instant crypto cashouts and a $20 free registration bonus.',
-  keywords: 'Lass777, online casino, slots, crash games, aviator, fish games, iGaming, white label casino',
+    'Experience premier crypto iGaming at 9casino. Play 9Casino Originals (Plinko, Mines, Crash), Pragmatic Play, Hacksaw Gaming, and Live Tables with instant crypto payouts, daily rakeback, and $20 on the house.',
+  keywords: '9casino, crypto casino, stake originals, plinko, crash, mines, sweet bonanza, gates of olympus, live casino, provably fair',
 };
 
 export const viewport: Viewport = {
@@ -16,7 +16,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: '#07090e',
+  themeColor: '#080b12',
 };
 
 export default function RootLayout({

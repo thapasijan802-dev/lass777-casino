@@ -20,8 +20,16 @@ export const MinesGrid: React.FC<MinesGridProps> = ({
 }) => {
   const isGameActive = status === 'ACTIVE';
 
+  const triggerHaptic = (duration = 15) => {
+    if (typeof window !== 'undefined' && 'vibrate' in navigator) {
+      try {
+        navigator.vibrate(duration);
+      } catch (e) {}
+    }
+  };
+
   return (
-    <div className="w-full max-w-[480px] aspect-square p-3 sm:p-4 rounded-3xl bg-[#090d16] border-2 border-amber-500/30 shadow-2xl flex items-center justify-center">
+    <div className="w-full max-w-[480px] aspect-square p-3 sm:p-4 rounded-3xl bg-[#0b0f19] border border-slate-800 shadow-2xl flex items-center justify-center">
       <div className="grid grid-cols-5 gap-2 sm:gap-2.5 w-full h-full">
         {Array.from({ length: 25 }, (_, idx) => {
           const isRevealed = revealedTiles.includes(idx);
@@ -37,8 +45,11 @@ export const MinesGrid: React.FC<MinesGridProps> = ({
               whileHover={isGameActive && !isRevealed ? { scale: 1.05, y: -2 } : {}}
               whileTap={isGameActive && !isRevealed ? { scale: 0.95 } : {}}
               disabled={!isGameActive || isRevealed || isLoading}
-              onClick={() => onTileClick(idx)}
-              className={`relative rounded-xl sm:rounded-2xl flex items-center justify-center border transition-all select-none overflow-hidden ${
+              onClick={() => {
+                triggerHaptic(isMine ? 40 : 15);
+                onTileClick(idx);
+              }}
+              className={`relative rounded-xl sm:rounded-2xl flex items-center justify-center border transition-all select-none overflow-hidden active:scale-95 ${
                 isRevealedMine
                   ? 'bg-gradient-to-br from-red-600 to-rose-900 border-red-400 shadow-lg shadow-red-600/50'
                   : isRevealedGem
@@ -46,8 +57,8 @@ export const MinesGrid: React.FC<MinesGridProps> = ({
                   : isEndGameHiddenMine
                   ? 'bg-red-950/40 border-red-900/60 opacity-60'
                   : isEndGameHiddenGem
-                  ? 'bg-[#0f1524] border-slate-800 opacity-40'
-                  : 'bg-gradient-to-b from-[#141b2c] to-[#0c121e] border-slate-700/60 hover:border-amber-400/70 hover:shadow-gold-glow'
+                  ? 'bg-[#0e1422] border-slate-800 opacity-40'
+                  : 'bg-gradient-to-b from-[#131a2a] to-[#0a0f19] border-slate-700/60 hover:border-emerald-400/70 hover:shadow-[0_0_15px_rgba(0,231,1,0.2)]'
               }`}
             >
               {isRevealedGem && (

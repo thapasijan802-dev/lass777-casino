@@ -4,67 +4,99 @@
 
 @layer base {
   :root {
-    --background: 224 71% 4%;
+    --background: 222 47% 5%;
     --foreground: 210 40% 98%;
   }
 
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   body {
-    @apply bg-[#07090e] text-slate-100 antialiased overflow-x-hidden;
+    @apply bg-[#080b12] text-slate-100 antialiased overflow-x-hidden;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    touch-action: manipulation;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  button, a {
+    touch-action: manipulation;
   }
 }
 
-/* Custom Scrollbar */
+/* Custom Sleek Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0b0f19;
+  background: #080b12;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #253146;
-  border-radius: 4px;
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background: #1c263b;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #f59e0b;
+  background: #00e701;
 }
 
-/* Luxury Shimmer & Glow Utilities */
+/* Modern Crypto Casino Glow Utilities */
+.emerald-text-glow {
+  background: linear-gradient(180deg, #bbf7d0 0%, #4ade80 40%, #00e701 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(0, 231, 1, 0.4));
+}
+
 .gold-text-glow {
   background: linear-gradient(180deg, #fffbeb 0%, #fcd34d 40%, #f59e0b 80%, #b45309 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 8px rgba(245, 158, 11, 0.5));
+  filter: drop-shadow(0 2px 8px rgba(245, 158, 11, 0.4));
+}
+
+.cyan-text-glow {
+  background: linear-gradient(180deg, #cffafe 0%, #38bdf8 40%, #00f2fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(0, 242, 254, 0.4));
+}
+
+.emerald-border-glow {
+  border: 1px solid rgba(0, 231, 1, 0.35);
+  box-shadow: 0 0 20px -3px rgba(0, 231, 1, 0.25);
 }
 
 .gold-border-glow {
   border: 1px solid rgba(245, 158, 11, 0.4);
-  box-shadow: 0 0 15px -3px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 0 15px -3px rgba(245, 158, 11, 0.25);
 }
 
 .neon-border-glow {
-  border: 1px solid rgba(6, 182, 212, 0.4);
-  box-shadow: 0 0 15px -3px rgba(6, 182, 212, 0.3);
+  border: 1px solid rgba(0, 242, 254, 0.4);
+  box-shadow: 0 0 15px -3px rgba(0, 242, 254, 0.25);
 }
 
 .glass-panel {
-  background: rgba(18, 23, 34, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 21, 34, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
 }
 
-.glass-panel-gold {
-  background: rgba(18, 23, 34, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(245, 158, 11, 0.25);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+.glass-panel-hover {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-panel-hover:hover {
+  background: rgba(22, 31, 49, 0.9);
+  border-color: rgba(0, 231, 1, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -10px rgba(0, 231, 1, 0.15);
 }
 
 /* Shimmer Bar Animation */
@@ -80,3 +112,22 @@
 .animate-shimmer {
   animation: shimmer 2.5s infinite;
 }
+
+/* Row Fade In for Live Bets */
+@keyframes rowFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px);
+    background-color: rgba(0, 231, 1, 0.08);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    background-color: transparent;
+  }
+}
+
+.animate-row-new {
+  animation: rowFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+

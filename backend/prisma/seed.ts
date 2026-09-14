@@ -376,6 +376,29 @@ async function main() {
   // 1. Create Admin User
   const adminPasswordHash = await bcrypt.hash('AdminPass777!', 10);
   const admin = await prisma.user.upsert({
+    where: { email: 'admin@9casino.com' },
+    update: {},
+    create: {
+      email: 'admin@9casino.com',
+      username: '9casino_admin',
+      role: Role.ADMIN,
+      vipLevel: 5,
+      status: UserStatus.ACTIVE,
+      passwordHash: adminPasswordHash,
+      wallet: {
+        create: {
+          realBalance: 50000.0,
+          bonusBalance: 5000.0,
+          currency: 'USD',
+        },
+      },
+    },
+    include: { wallet: true },
+  });
+  console.log(`✅ 9casino Admin user seeded: ${admin.email}`);
+
+  // 1b. Legacy admin alias
+  await prisma.user.upsert({
     where: { email: 'admin@lass777.com' },
     update: {},
     create: {
@@ -393,17 +416,15 @@ async function main() {
         },
       },
     },
-    include: { wallet: true },
-  });
-  console.log(`✅ Admin user seeded: ${admin.email}`);
+  }).catch(() => {});
 
   // 2. Create Demo User
   const demoPasswordHash = await bcrypt.hash('DemoPass777!', 10);
   const demoUser = await prisma.user.upsert({
-    where: { email: 'demo@lass777.com' },
+    where: { email: 'demo@9casino.com' },
     update: {},
     create: {
-      email: 'demo@lass777.com',
+      email: 'demo@9casino.com',
       username: 'lucky_player',
       phone: '+15557770199',
       role: Role.USER,
@@ -431,7 +452,28 @@ async function main() {
     },
     include: { wallet: true },
   });
-  console.log(`✅ Demo user seeded: ${demoUser.email}`);
+  console.log(`✅ 9casino Demo user seeded: ${demoUser.email}`);
+
+  // 2b. Legacy demo alias
+  await prisma.user.upsert({
+    where: { email: 'demo@lass777.com' },
+    update: {},
+    create: {
+      email: 'demo@lass777.com',
+      username: 'lass_player',
+      role: Role.USER,
+      vipLevel: 2,
+      status: UserStatus.ACTIVE,
+      passwordHash: demoPasswordHash,
+      wallet: {
+        create: {
+          realBalance: 2500.0,
+          bonusBalance: 500.0,
+          currency: 'USD',
+        },
+      },
+    },
+  }).catch(() => {});
 
   // 3. Seed initial transactions for demo user
   if (demoUser.wallet) {

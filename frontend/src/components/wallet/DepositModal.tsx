@@ -196,7 +196,7 @@ export const DepositModal: React.FC = () => {
             <button
               onClick={handleDeposit}
               disabled={loading || amount < 10}
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-black font-black uppercase tracking-wider text-sm shadow-gold-glow hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-400 to-[#00e701] text-black font-black uppercase tracking-wider text-sm shadow-[0_0_15px_rgba(0,231,1,0.35)] hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {loading ? (
                 <span>Confirming Deposit...</span>

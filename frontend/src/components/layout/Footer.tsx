@@ -57,22 +57,22 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-10">
           {/* Brand Info */}
           <div className="md:col-span-2 space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 via-amber-600 to-yellow-800 p-0.5 shadow-gold-glow">
-                <div className="w-full h-full bg-[#0d111a] rounded-[10px] flex items-center justify-center">
-                  <span className="text-lg font-black italic gold-text-glow">777</span>
+            <div className="flex items-center gap-2.5">
+              <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-[#00e701] p-0.5 shadow-[0_0_12px_rgba(0,231,1,0.35)]">
+                <div className="w-full h-full bg-[#090d16] rounded-[10px] flex items-center justify-center">
+                  <span className="text-lg font-black font-mono text-emerald-400">9</span>
                 </div>
               </div>
               <span className="text-2xl font-black tracking-wider text-white">
-                LASS<span className="text-amber-400">777</span>
+                9<span className="text-emerald-400">CASINO</span>
               </span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
-              The premier online destination for world-class slots, crash games, and high-stakes fish arcades. Powered by industry-leading game aggregator protocols with lightning-fast payouts and VIP rewards.
+              The premier online destination for provably fair crypto originals, blockbuster slots, and high-stakes live dealer game shows. Lightning-fast crypto payouts, automated rakeback, and 24/7 VIP support.
             </p>
-            <div className="flex items-center gap-2 text-xs font-semibold text-amber-400">
+            <div className="flex items-center gap-2 text-xs font-semibold text-emerald-400">
               <Sparkles className="w-4 h-4" />
-              <span>OVER $14,000,000 IN MONTHLY JACKPOTS WON</span>
+              <span>OVER $28,000,000 IN MONTHLY PAYOUTS PROCESSED</span>
             </div>
           </div>
 
@@ -80,33 +80,32 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="text-sm font-bold text-slate-200 uppercase tracking-wider mb-3">Games</h4>
             <ul className="space-y-2 text-xs">
-              <li><Link href="/lobby?category=SLOTS" className="hover:text-amber-400 transition-colors">Video Slots</Link></li>
-              <li><Link href="/lobby?category=CRASH" className="hover:text-amber-400 transition-colors">Crash Games & Aviator</Link></li>
-              <li><Link href="/lobby?category=FISH" className="hover:text-amber-400 transition-colors">Fish Arcade Shooting</Link></li>
-              <li><Link href="/lobby?category=LIVE" className="hover:text-amber-400 transition-colors">Live Casino Tables</Link></li>
-              <li><Link href="/lobby" className="hover:text-amber-400 transition-colors">Jackpot Games</Link></li>
+              <li><Link href="/lobby?category=ORIGINALS" className="hover:text-emerald-400 transition-colors">9Casino Originals</Link></li>
+              <li><Link href="/lobby?category=SLOTS" className="hover:text-emerald-400 transition-colors">Video Slots</Link></li>
+              <li><Link href="/lobby?category=CRASH" className="hover:text-emerald-400 transition-colors">Crash Games & Aviator</Link></li>
+              <li><Link href="/lobby?category=LIVE" className="hover:text-emerald-400 transition-colors">Live Casino Tables</Link></li>
+              <li><Link href="/lobby" className="hover:text-emerald-400 transition-colors">All 35+ Games</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-sm font-bold text-slate-200 uppercase tracking-wider mb-3">Promotions</h4>
             <ul className="space-y-2 text-xs">
-              <li><Link href="/#promotions" className="hover:text-amber-400 transition-colors">$20 Free Sign-up Chip</Link></li>
-              <li><Link href="/#promotions" className="hover:text-amber-400 transition-colors">200% Welcome Package</Link></li>
-              <li><Link href="/#vip" className="hover:text-amber-400 transition-colors">VIP High-Roller Club</Link></li>
-              <li><Link href="/wallet" className="hover:text-amber-400 transition-colors">Daily Deposit Cashbacks</Link></li>
-              <li><Link href="/#app-download" className="hover:text-amber-400 transition-colors">Mobile App Rewards</Link></li>
+              <li><Link href="/#vip" className="hover:text-emerald-400 transition-colors">VIP Rakeback Club</Link></li>
+              <li><Link href="/wallet" className="hover:text-emerald-400 transition-colors">Deposit & Withdraw</Link></li>
+              <li><Link href="/#vip" className="hover:text-emerald-400 transition-colors">Weekly Reload Bonus</Link></li>
+              <li><Link href="/#vip" className="hover:text-emerald-400 transition-colors">Monthly VIP Drops</Link></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-sm font-bold text-slate-200 uppercase tracking-wider mb-3">Security & Legal</h4>
+            <h4 className="text-sm font-bold text-slate-200 uppercase tracking-wider mb-3">Security & Fairness</h4>
             <ul className="space-y-2 text-xs">
-              <li><span className="text-slate-400">Terms of Service</span></li>
-              <li><span className="text-slate-400">Privacy Policy</span></li>
-              <li><span className="text-slate-400">Fairness & RNG Testing</span></li>
+              <li><span className="text-slate-400">Provably Fair Verification</span></li>
+              <li><span className="text-slate-400">Crypto Vault Cold Storage</span></li>
+              <li><span className="text-slate-400">Anti-Money Laundering (AML)</span></li>
               <li><span className="text-slate-400">Responsible Gaming 18+</span></li>
-              <li><span className="text-slate-400">Self-Exclusion</span></li>
+              <li><span className="text-slate-400">Privacy & Terms</span></li>
             </ul>
           </div>
         </div>
@@ -114,31 +113,31 @@ export const Footer: React.FC = () => {
         {/* Certified Providers Bar */}
         <div className="pt-8 border-t border-slate-800/80">
           <div className="text-center text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">
-            Official Licensed Provider Integrations
+            Official Certified Game Aggregators & Studio Partners
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-slate-500 font-black text-sm tracking-wider">
-            <span className="hover:text-amber-400 transition-colors">PRAGMATIC PLAY</span>
-            <span className="hover:text-amber-400 transition-colors">PG SOFT</span>
-            <span className="hover:text-amber-400 transition-colors">SPRIBE</span>
-            <span className="hover:text-amber-400 transition-colors">JILI GAMES</span>
-            <span className="hover:text-amber-400 transition-colors">EVOLUTION</span>
-            <span className="hover:text-amber-400 transition-colors">NETENT</span>
-            <span className="hover:text-amber-400 transition-colors">BIGSIX GAMING</span>
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-slate-500 font-black text-xs sm:text-sm tracking-wider">
+            <span className="hover:text-emerald-400 transition-colors">9CASINO ORIGINALS</span>
+            <span className="hover:text-emerald-400 transition-colors">PRAGMATIC PLAY</span>
+            <span className="hover:text-emerald-400 transition-colors">HACKSAW GAMING</span>
+            <span className="hover:text-emerald-400 transition-colors">EVOLUTION</span>
+            <span className="hover:text-emerald-400 transition-colors">PG SOFT</span>
+            <span className="hover:text-emerald-400 transition-colors">SPRIBE</span>
+            <span className="hover:text-emerald-400 transition-colors">JILI GAMES</span>
           </div>
         </div>
 
         {/* Regulatory & Disclaimer */}
         <div className="mt-8 pt-6 border-t border-slate-800/60 text-center space-y-3">
-          <div className="flex items-center justify-center gap-4 text-xs font-bold text-amber-500">
-            <span className="px-2 py-0.5 rounded border border-amber-500/40">18+ ONLY</span>
-            <span>BE GAMBLE AWARE</span>
-            <span>GAMCARE CERTIFIED</span>
+          <div className="flex items-center justify-center gap-4 text-xs font-bold text-emerald-400">
+            <span className="px-2 py-0.5 rounded border border-emerald-500/40">18+ ONLY</span>
+            <span>PROVABLY FAIR</span>
+            <span>INSTANT CRYPTO CASHOUTS</span>
           </div>
           <p className="text-[11px] text-slate-500 leading-relaxed max-w-3xl mx-auto">
-            Lass777 operates as an enterprise white-label iGaming platform connected to regulated game aggregator services. External provider licenses apply to respective game feeds. Gambling can be addictive; please play responsibly.
+            9casino is a premier crypto entertainment and iGaming platform. All games are certified provably fair or served directly via licensed gaming aggregators. Please play responsibly.
           </p>
           <div className="text-[11px] text-slate-600">
-            © {new Date().getFullYear()} Lass777 Casino Entertainment Inc. All rights reserved.
+            © {new Date().getFullYear()} 9casino Global Entertainment Inc. All rights reserved.
           </div>
         </div>
       </div>

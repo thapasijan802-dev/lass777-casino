@@ -38,8 +38,16 @@ export const MinesControls: React.FC<MinesControlsProps> = ({
 }) => {
   const isGameActive = status === 'ACTIVE';
 
+  const triggerHaptic = (duration = 10) => {
+    if (typeof window !== 'undefined' && 'vibrate' in navigator) {
+      try {
+        navigator.vibrate(duration);
+      } catch (e) {}
+    }
+  };
+
   return (
-    <div className="w-full lg:w-80 rounded-3xl bg-[#090d16] border-2 border-amber-500/30 p-5 shadow-2xl flex flex-col justify-between gap-4">
+    <div className="w-full lg:w-80 rounded-3xl bg-[#0b0f19] border border-slate-800 p-4 sm:p-5 shadow-2xl flex flex-col justify-between gap-4">
       <div className="flex flex-col gap-4">
         {/* Mines Count Selector */}
         <div className="flex flex-col gap-1.5">
@@ -48,7 +56,7 @@ export const MinesControls: React.FC<MinesControlsProps> = ({
               <Bomb className="w-3.5 h-3.5 text-red-400" />
               Mines
             </span>
-            <span className="text-amber-400 font-mono text-sm font-black">{mineCount} Mines</span>
+            <span className="text-red-400 font-mono text-sm font-black">{mineCount} Mines</span>
           </div>
 
           <div className="flex items-center gap-1.5">
@@ -58,8 +66,11 @@ export const MinesControls: React.FC<MinesControlsProps> = ({
               max={24}
               disabled={isGameActive || isLoading}
               value={mineCount}
-              onChange={(e) => setMineCount(Number(e.target.value))}
-              className="w-full accent-amber-500 cursor-pointer disabled:opacity-40"
+              onChange={(e) => {
+                triggerHaptic(8);
+                setMineCount(Number(e.target.value));
+              }}
+              className="w-full accent-red-500 cursor-pointer disabled:opacity-40"
             />
           </div>
 
@@ -69,8 +80,11 @@ export const MinesControls: React.FC<MinesControlsProps> = ({
               <button
                 key={cnt}
                 disabled={isGameActive || isLoading}
-                onClick={() => setMineCount(cnt)}
-                className={`flex-1 py-1 rounded-lg text-[10px] font-black font-mono transition-all disabled:opacity-30 ${
+                onClick={() => {
+                  triggerHaptic(10);
+                  setMineCount(cnt);
+                }}
+                className={`flex-1 py-1.5 rounded-lg text-[10px] font-black font-mono transition-all disabled:opacity-30 active:scale-95 ${
                   mineCount === cnt
                     ? 'bg-red-500/20 text-red-300 border border-red-500/50'
                     : 'bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700'
@@ -89,7 +103,7 @@ export const MinesControls: React.FC<MinesControlsProps> = ({
             <span className="text-white font-mono text-sm font-black">${betAmount}.00</span>
           </div>
 
-          <div className="flex items-center bg-[#121826] rounded-xl border border-slate-700 px-3 py-2">
+          <div className="flex items-center bg-[#101524] rounded-xl border border-slate-700 px-3 py-2">
             <span className="text-slate-400 font-mono text-xs mr-1">$</span>
             <input
               type="number"
@@ -106,22 +120,31 @@ export const MinesControls: React.FC<MinesControlsProps> = ({
           <div className="grid grid-cols-3 gap-1.5">
             <button
               disabled={isGameActive || isLoading}
-              onClick={() => setBetAmount(Math.max(1, Math.floor(betAmount / 2)))}
-              className="py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[10px] font-black text-slate-300 disabled:opacity-30"
+              onClick={() => {
+                triggerHaptic(8);
+                setBetAmount(Math.max(1, Math.floor(betAmount / 2)));
+              }}
+              className="py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-[10px] font-black text-slate-300 disabled:opacity-30 active:scale-95 transition-all"
             >
               1/2
             </button>
             <button
               disabled={isGameActive || isLoading}
-              onClick={() => setBetAmount(Math.min(500, betAmount * 2))}
-              className="py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[10px] font-black text-slate-300 disabled:opacity-30"
+              onClick={() => {
+                triggerHaptic(8);
+                setBetAmount(Math.min(500, betAmount * 2));
+              }}
+              className="py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-[10px] font-black text-slate-300 disabled:opacity-30 active:scale-95 transition-all"
             >
               2x
             </button>
             <button
               disabled={isGameActive || isLoading}
-              onClick={() => setBetAmount(500)}
-              className="py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-[10px] font-black text-amber-300 border border-amber-500/40 disabled:opacity-30"
+              onClick={() => {
+                triggerHaptic(12);
+                setBetAmount(500);
+              }}
+              className="py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-[10px] font-black text-emerald-400 border border-emerald-500/40 disabled:opacity-30 active:scale-95 transition-all"
             >
               MAX
             </button>
@@ -130,7 +153,7 @@ export const MinesControls: React.FC<MinesControlsProps> = ({
 
         {/* Dynamic Multiplier Stats Strip */}
         {isGameActive && (
-          <div className="p-3 rounded-2xl bg-[#101524] border border-amber-500/30 flex flex-col gap-2">
+          <div className="p-3 rounded-2xl bg-[#0e1424] border border-emerald-500/30 flex flex-col gap-2">
             <div className="flex items-center justify-between text-xs">
               <span className="text-slate-400 font-bold uppercase text-[10px]">Current Multiplier</span>
               <span className="text-emerald-400 font-mono font-black text-base animate-pulse">
@@ -152,20 +175,26 @@ export const MinesControls: React.FC<MinesControlsProps> = ({
       {/* Main Dynamic Action Button */}
       {isGameActive ? (
         <button
-          onClick={onCashout}
+          onClick={() => {
+            triggerHaptic(25);
+            onCashout();
+          }}
           disabled={isLoading || cashoutValue <= 0}
-          className="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600 text-black font-black text-sm uppercase tracking-wider shadow-neon-glow hover:brightness-110 active:scale-98 transition-all flex flex-col items-center justify-center cursor-pointer animate-pulse"
+          className="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-400 to-[#00e701] text-black font-black text-sm uppercase tracking-wider shadow-[0_0_20px_rgba(0,231,1,0.5)] hover:brightness-110 active:scale-95 transition-all flex flex-col items-center justify-center cursor-pointer animate-pulse"
         >
-          <span className="text-[10px] font-extrabold uppercase">CASH OUT</span>
+          <span className="text-[10px] font-extrabold uppercase tracking-widest">CASH OUT</span>
           <span className="text-lg font-black font-mono">
             {formatCurrency(cashoutValue)} ({currentMultiplier.toFixed(2)}x)
           </span>
         </button>
       ) : (
         <button
-          onClick={onStartGame}
+          onClick={() => {
+            triggerHaptic(20);
+            onStartGame();
+          }}
           disabled={isLoading || balance < betAmount}
-          className="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-black font-black text-sm uppercase tracking-wider shadow-gold-glow hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2 disabled:opacity-40 cursor-pointer"
+          className="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-400 to-[#00e701] text-black font-black text-sm uppercase tracking-wider shadow-[0_0_20px_rgba(0,231,1,0.35)] hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-40 cursor-pointer"
         >
           <Sparkles className="w-4 h-4" />
           <span>START GAME (${betAmount}.00)</span>

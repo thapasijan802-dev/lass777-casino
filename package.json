@@ -1,7 +1,7 @@
 {
-  "name": "lass777-casino-platform",
+  "name": "9casino-platform",
   "version": "1.0.0",
-  "description": "White-label iGaming casino platform inspired by lass777.com (Slots, Crash, Fish games, Aggregator Layer)",
+  "description": "Next-gen crypto iGaming casino platform inspired by Stake & Rainbet (Originals, Slots, Crash, Live Casino, Aggregator Layer)",
   "scripts": {
     "dev:backend": "npm --prefix backend run start:dev",
     "dev:frontend": "npm --prefix frontend run dev",

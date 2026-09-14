@@ -1,4 +1,4 @@
-export type GameCategory = 'SLOTS' | 'CRASH' | 'FISH' | 'LIVE' | 'TABLE';
+export type GameCategory = 'SLOTS' | 'CRASH' | 'FISH' | 'LIVE' | 'TABLE' | 'ORIGINALS';
 
 export type GameProviderType =
   | 'PG_SOFT'

@@ -3,7 +3,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/a
 class ApiClient {
   private getToken(): string | null {
     if (typeof window === 'undefined') return null;
-    return localStorage.getItem('lass777_token');
+    return localStorage.getItem('9casino_token') || localStorage.getItem('lass777_token');
   }
 
   private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {

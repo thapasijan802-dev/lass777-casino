@@ -33,7 +33,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   initialize: async () => {
     if (typeof window === 'undefined') return;
-    const token = localStorage.getItem('lass777_token');
+    const token = localStorage.getItem('9casino_token') || localStorage.getItem('lass777_token');
     if (!token) {
       set({ isLoading: false });
       return;
@@ -49,6 +49,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         isLoading: false,
       });
     } catch (e) {
+      localStorage.removeItem('9casino_token');
       localStorage.removeItem('lass777_token');
       set({ user: null, wallet: null, token: null, isAuthenticated: false, isLoading: false });
     }
@@ -56,7 +57,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   login: async (email: string, password: string) => {
     const data = await api.login({ email, password });
-    localStorage.setItem('lass777_token', data.token);
+    localStorage.setItem('9casino_token', data.token);
     set({
       user: data.user,
       wallet: data.user.wallet,
@@ -68,7 +69,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   register: async (payload: any) => {
     const data = await api.register(payload);
-    localStorage.setItem('lass777_token', data.token);
+    localStorage.setItem('9casino_token', data.token);
     set({
       user: data.user,
       wallet: data.user.wallet,
@@ -79,6 +80,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   logout: () => {
+    localStorage.removeItem('9casino_token');
     localStorage.removeItem('lass777_token');
     set({
       user: null,

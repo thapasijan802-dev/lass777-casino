@@ -52,19 +52,19 @@ function LobbyContent() {
   });
 
   return (
-    <div className="min-h-screen bg-[#07090e] py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div className="min-h-screen bg-[#080b12] py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Lobby Banner */}
-      <div className="relative rounded-3xl bg-gradient-to-r from-[#121827] via-[#0f1422] to-[#121827] border border-amber-500/30 p-6 sm:p-10 mb-8 overflow-hidden shadow-card-elevated">
+      <div className="relative rounded-3xl bg-gradient-to-r from-[#0d1424] via-[#090d18] to-[#0d1424] border border-slate-800 p-6 sm:p-10 mb-8 overflow-hidden shadow-xl">
         <div className="relative z-10 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-black uppercase mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-black uppercase mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>25+ Certified Games Live</span>
+            <span>35+ Certified Games • Provably Fair</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white mb-3">
-            CASINO <span className="gold-text-glow">GAME LOBBY</span>
+            9CASINO <span className="emerald-text-glow">GAME LOBBY</span>
           </h1>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Spin certified slots from PG Soft, Pragmatic Play, and JILI, or cash out at high multipliers in Spribe Aviator and JetX.
+            Play provably fair 9Casino Originals (Plinko, Mines, Crash), blockbuster slots from Pragmatic and Hacksaw, or join live dealer tables from Evolution Gaming.
           </p>
         </div>
       </div>
@@ -74,14 +74,14 @@ function LobbyContent() {
 
       {/* Game Catalog Grid */}
       {filteredGames.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
           {filteredGames.map((game) => (
             <GameCard key={game.id} game={game} />
           ))}
         </div>
       ) : (
-        <div className="text-center py-20 rounded-2xl bg-[#0f1420] border border-slate-800">
-          <div className="text-4xl mb-3">🎰</div>
+        <div className="text-center py-20 rounded-2xl bg-[#0d121f] border border-slate-800">
+          <div className="text-4xl mb-3">🎲</div>
           <h3 className="text-lg font-bold text-white mb-1">No games found</h3>
           <p className="text-xs text-slate-400">Try adjusting your category or search query.</p>
         </div>
@@ -94,8 +94,8 @@ export default function LobbyPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#07090e] flex items-center justify-center">
-          <div className="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
+        <div className="min-h-screen bg-[#080b12] flex items-center justify-center">
+          <div className="w-10 h-10 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       }
     >
